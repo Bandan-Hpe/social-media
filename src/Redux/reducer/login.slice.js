@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { decryptToken } from "../../util/util";
 
 const loginSlice = createSlice({
   name: "login",
@@ -40,16 +41,19 @@ const loginSlice = createSlice({
         list: [action.payload, ...state.list],
       };
     },
-    verifyOtpSuccess: (state, action) => {
+    loginSuccess: (state, action) => {
       debugger;
       return {
         ...state,
-        success: true,
+        isLoggedin: true,
+
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
+
         list: [action.payload, ...state.list],
       };
     },
+ 
     verifyOtpFailer: (state) => {
       debugger;
       return {
@@ -63,7 +67,7 @@ export const {
   sendotp,
   sendOtpSuccess,
   verifyOtp,
-  verifyOtpSuccess,
+  loginSuccess,
   verifyOtpFailer,
 } = loginSlice.actions;
 

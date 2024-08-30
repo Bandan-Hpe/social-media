@@ -1,15 +1,20 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment,  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Navigate, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import { BiUserCircle } from "react-icons/bi";
 import { sendotp, verifyOtp } from "../../Redux/reducer/login.slice";
 import { MdNumbers } from "react-icons/md";
 
 const Login = () => {
-  const { success, accessToken } = useSelector((state) => state.loginSlice);
-  if (success) {
+  const navigate=useNavigate()
+  const { success, accessToken, isLoggedin } = useSelector(
+    (state) => state.loginSlice
+  );
+  
     console.log(accessToken);
-  }
+    console.log(isLoggedin);
+  
 
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
@@ -21,7 +26,7 @@ const Login = () => {
     if (mobile?.length >= 10) {
       dispatch(sendotp(mobile));
     }
-  };
+  }; 
 
   const login = (e) => {
     const data = {
@@ -31,9 +36,25 @@ const Login = () => {
     e.preventDefault();
     console.log(otp, "otp");
     dispatch(verifyOtp(data));
+    isLoggedin && navigate("/home");
+
 
     setOtp("");
   };
+
+  // if (isLoggedin) {
+  //   <Navigate to="/home" />;
+  // }
+    const token = Cookies.get("token");
+  if (token) {
+    return <Navigate to="/home" />;
+  }
+
+  // useEffect(() => {
+  //   if (isLoggedin) {
+  //     <Navigate to="/home" />;
+  //   }
+  // }, [isLoggedin]);
 
   return (
     <Fragment>
@@ -90,7 +111,7 @@ const Login = () => {
                 <button
                   className="bg-[#1bace1] text-white py-2 px-5 rounded-md text-xl mx-5 cursor-pointer"
                   onClick={sendOtp}
-                  disabled={mobile.trim().length <= 10}
+                  disabled={mobile.trim().length < 10}
                 >
                   Send OTP
                 </button>
