@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animated-circ:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 630px;
+  height: 630px;
+  border-radius: 50%;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  background: #1bace1;
+  background: linear-gradient(45deg, #1bace1 0%, #fafafa 50%, #1bace1 100%);
+  background-size: 200% 200%;
+  background-position: left bottom;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  filter: drop-shadow(0px 30px 20px rgba(185, 185, 185, 0.4));
+  -webkit-filter: drop-shadow(0px 30px 20px rgba(185, 185, 185, 0.4));
+  -moz-filter: drop-shadow(0px 30px 20px rgba(185, 185, 185, 0.4));
+  -webkit-animation-name: animateGradient;
+  animation-name: animateGradient;
+  -webkit-animation-duration: 2.5s;
+  animation-duration: 2.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes animateGradient {
+  0% {
+    background-position: left bottom;
+  }
+
+  50% {
+    background-position: right top;
+  }
+
+  100% {
+    background-position: left bottom;
+  }
+}
+
+@keyframes animateGradient {
+  0% {
+    background-position: left bottom;
+  }
+
+  50% {
+    background-position: right top;
+  }
+
+  100% {
+    background-position: left bottom;
+  }
+}
