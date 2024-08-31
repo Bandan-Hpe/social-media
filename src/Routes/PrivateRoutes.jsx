@@ -1,21 +1,24 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
 
 const PrivateRoutes = ({ children }) => {
   debugger;
-  // const { isLoggedin } = useSelector((state) => state.loginSlice);
-  // console.log(isLoggedin, "isAuth");
+
   const token = Cookies.get("token");
   const reshToken = Cookies.get("refreshToken");
-  console.log(token, "isAuth trueeeee");
 
-  if (!token || !reshToken) {
+  if (token && reshToken) {
     debugger;
-    return <Navigate to="/" />;
-  } else {
-    return children;
+    if (!token || !reshToken) {
+      debugger;
+      return <Navigate to="/" />;
+    } else {
+      debugger;
+
+      return children;
+    }
   }
 };
 

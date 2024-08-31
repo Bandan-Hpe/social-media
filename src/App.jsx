@@ -13,7 +13,7 @@ function App() {
     const isLoggedin = token || refreshToken;
 
     isLoggedin && <Navigate to="/home" />;
-  }, [0]);
+  }, [true]);
 
   return (
     <Fragment>

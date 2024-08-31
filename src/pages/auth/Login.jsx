@@ -1,20 +1,14 @@
-import React, { Fragment,  useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { BiUserCircle } from "react-icons/bi";
 import { sendotp, verifyOtp } from "../../Redux/reducer/login.slice";
 import { MdNumbers } from "react-icons/md";
 
 const Login = () => {
-  const navigate=useNavigate()
-  const { success, accessToken, isLoggedin } = useSelector(
-    (state) => state.loginSlice
-  );
-  
-    console.log(accessToken);
-    console.log(isLoggedin);
-  
+  const navigate = useNavigate();
+  const { success, isLoggedin } = useSelector((state) => state.loginSlice);
 
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
@@ -22,11 +16,10 @@ const Login = () => {
 
   const sendOtp = (e) => {
     e.preventDefault();
-    debugger;
     if (mobile?.length >= 10) {
       dispatch(sendotp(mobile));
     }
-  }; 
+  };
 
   const login = (e) => {
     const data = {
@@ -36,25 +29,17 @@ const Login = () => {
     e.preventDefault();
     console.log(otp, "otp");
     dispatch(verifyOtp(data));
-    isLoggedin && navigate("/home");
-
 
     setOtp("");
   };
-
-  // if (isLoggedin) {
-  //   <Navigate to="/home" />;
-  // }
+  useEffect(() => {
     const token = Cookies.get("token");
-  if (token) {
-    return <Navigate to="/home" />;
-  }
-
-  // useEffect(() => {
-  //   if (isLoggedin) {
-  //     <Navigate to="/home" />;
-  //   }
-  // }, [isLoggedin]);
+    const refreshToken = Cookies.get("refreshToken");
+    const isLoggedin = token || refreshToken;
+    if (isLoggedin) {
+      navigate("/home");
+    }
+  }, [isLoggedin]);
 
   return (
     <Fragment>
@@ -109,7 +94,7 @@ const Login = () => {
               </p>
               <div className="flex gap-5">
                 <button
-                  className="bg-[#1bace1] text-white py-2 px-5 rounded-md text-xl mx-5 cursor-pointer"
+                  className="bg-[#1bace1] text-white p-2  rounded-md text-sm  cursor-pointer"
                   onClick={sendOtp}
                   disabled={mobile.trim().length < 10}
                 >
@@ -117,7 +102,7 @@ const Login = () => {
                 </button>
 
                 <button
-                  className="bg-[#1bace1] text-white py-2 px-5 rounded-md text-xl cursor-pointer"
+                  className="bg-[#1bace1] text-white py-2 px-5 rounded-md text-sm cursor-pointer"
                   onClick={login}
                   disabled={!success}
                 >
