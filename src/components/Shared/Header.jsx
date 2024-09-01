@@ -72,11 +72,6 @@ const Header = () => {
                 <AiFillAppstore className="text-[#26ade2] text-xl" />
               </Link>
             </li>
-            <li className="cursor-pointer bg-[#b5e3f66d] border-2 border-[#26ade2] p-2 rounded-full">
-              <Link to="/login">
-                <BiHome className="text-[#26ade2] text-xl" />
-              </Link>
-            </li>
           </ul>
         </Box>
       </Flex>
