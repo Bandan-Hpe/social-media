@@ -23,7 +23,7 @@ const Home = () => {
         <Box width="25%">Home</Box>
         <Box width="50% ">
           <CreatePost />
-          <FeedCard/>
+          <FeedCard />
         </Box>
         <Box width="25%"></Box>
       </Box>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { BiUserCircle } from "react-icons/bi";
-import { sendotp, verifyOtp } from "../../Redux/reducer/login.slice";
+import { sendotp, verifyOtp } from "../../Redux/reducer/Login/login.slice";
 import { MdNumbers } from "react-icons/md";
 
 const Login = () => {

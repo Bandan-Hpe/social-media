@@ -1,7 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { put, takeLatest } from "redux-saga/effects";
-import { url } from "../../../api";
+import { url } from "./../../../../api";
+
 import {
   loginSuccess,
   sendOtpSuccess,
@@ -17,14 +18,13 @@ export function* sendOtpSaga(action) {
     const req = yield axios.post(`${url}auth/sendotp/`, {
       mobileNumber: action.payload,
     });
- 
+
     const res = yield req.data;
     debugger;
 
     if (res?.isSuccess) {
       message.success(res?.message);
       yield put(sendOtpSuccess(res));
-      
     } else {
       debugger;
       message.error(res?.message);
@@ -58,7 +58,6 @@ export function* verifyOtpSaga(action) {
           ...res,
         })
       );
-
     } else {
       debugger;
       message.error(res?.message);
